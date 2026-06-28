@@ -1,5 +1,5 @@
 ---
-publishDate: 2026-06-28T12:00:00Z
+publishDate: 2026-06-29T12:00:00Z
 title: 'How Agent Memory Actually Works: Facts, Vectors, and Scoping Explained'
 excerpt: Storing every chat message and hoping the model finds the right ones does not scale. Here is what actually happens inside a memory pipeline, from fact extraction to scoped vector search, and how to debug it when recall goes sideways.
 category: Engineering
@@ -40,7 +40,7 @@ Raw chat history is a great audit log. It is a poor memory system. Production ag
 
 ## Fact extraction: from messages to things worth remembering
 
-Instead of storing messages verbatim, a memory pipeline asks an LLM a different question: *What here is worth remembering?*
+Instead of storing messages verbatim, a memory pipeline asks an LLM a different question: _What here is worth remembering?_
 
 You feed it the recent conversation (or a summary of it). It returns structured facts: short, standalone statements that capture durable information about the user, their preferences, their goals, or their context.
 
@@ -77,15 +77,15 @@ The tradeoff is real: extraction costs an extra model call on write, and a bad e
 
 Once you have facts, you need a way to find them later. Keyword search fails in obvious ways. The user asks "What outdoor activities am I into?" Your stored fact says "User enjoys hiking." No shared words except maybe "user," which appears in everything.
 
-**Embeddings** solve this. An embedding model turns text into a vector: a long list of numbers that represents the *meaning* of that text in a high dimensional space. Texts with similar meaning end up with vectors that point in similar directions.
+**Embeddings** solve this. An embedding model turns text into a vector: a long list of numbers that represents the _meaning_ of that text in a high dimensional space. Texts with similar meaning end up with vectors that point in similar directions.
 
 You do not need to visualize 1,536 dimensions. The intuition is enough: "hiking" and "outdoor activities" land near each other. "Favorite pizza topping" lands somewhere else entirely.
 
 When the user asks a question, you embed the query the same way you embedded the facts at storage time. Then you run **semantic search**: find the stored vectors closest to the query vector. That is usually cosine similarity or a related distance metric in a vector index (pgvector, sqlite-vec, Upstash, and others).
 
-Keyword search asks: *Does this string contain these tokens?*
+Keyword search asks: _Does this string contain these tokens?_
 
-Semantic search asks: *Which stored ideas are closest in meaning to this question?*
+Semantic search asks: _Which stored ideas are closest in meaning to this question?_
 
 That is why "outdoor activities" retrieves a fact about hiking even though the words do not match. It is also why memory recall feels almost magical when it works, and confusing when it does not (more on that later).
 
@@ -93,7 +93,7 @@ In turbomem, each extracted fact gets embedded on write. On `memory.search()`, y
 
 ## Scoping: userId, agentId, sessionId, and why isolation matters
 
-Facts and vectors answer *what* to remember and *how* to find it. Scoping answers *who* it belongs to.
+Facts and vectors answer _what_ to remember and _how_ to find it. Scoping answers _who_ it belongs to.
 
 Every memory write should carry scope metadata. At minimum:
 
@@ -109,14 +109,14 @@ turbomem applies scope filters on both write and search. When you search with `{
 
 ```typescript
 await memory.add(messages, {
-  userId: "user_123",
-  agentId: "fitness_coach",
-  sessionId: "session_abc",
+  userId: 'user_123',
+  agentId: 'fitness_coach',
+  sessionId: 'session_abc',
 });
 
-const results = await memory.search("What are my fitness goals?", {
-  userId: "user_123",
-  agentId: "fitness_coach",
+const results = await memory.search('What are my fitness goals?', {
+  userId: 'user_123',
+  agentId: 'fitness_coach',
   limit: 5,
 });
 ```
@@ -141,7 +141,7 @@ Nothing from the raw chat is stored as searchable memory unless the extractor de
 
 ### Turn 2: a new session, weeks later
 
-The user returns and asks: *What outdoor activities am I into?*
+The user returns and asks: _What outdoor activities am I into?_
 
 **Step 1, query embedding:** the question is embedded into the same vector space.
 
@@ -152,9 +152,9 @@ The user returns and asks: *What outdoor activities am I into?*
 **Step 4, your agent:** you inject those facts into the system prompt or tool context. The model answers with grounded knowledge instead of guessing.
 
 ```typescript
-const results = await memory.search("What outdoor activities am I into?", {
-  userId: "user_123",
-  agentId: "fitness_coach",
+const results = await memory.search('What outdoor activities am I into?', {
+  userId: 'user_123',
+  agentId: 'fitness_coach',
   limit: 3,
 });
 
