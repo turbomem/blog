@@ -64,7 +64,7 @@ apps:
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: 'G-HGWJHC6PNR' # or "G-XXXXXXXXXX"
 
 ui:
   theme: 'dark' # Matches turbomem.dev homepage default; toggle still works
