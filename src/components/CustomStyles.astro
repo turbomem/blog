@@ -1,0 +1,48 @@
+---
+import '@fontsource-variable/inter';
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+
+    /* turbomem.dev (VitePress light) */
+    --aw-color-primary: rgb(52 81 178);
+    --aw-color-secondary: rgb(58 92 204);
+    --aw-color-accent: rgb(86 114 205);
+
+    --aw-color-text-heading: rgb(60 60 67);
+    --aw-color-text-default: rgb(60 60 67);
+    --aw-color-text-muted: rgb(103 103 108);
+    --aw-color-bg-page: rgb(255 255 255);
+    --aw-color-bg-page-dark: rgb(246 246 247);
+
+    ::selection {
+      background-color: rgb(100 108 255 / 30%);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+
+    /* turbomem.dev (VitePress dark — default on homepage) */
+    --aw-color-primary: rgb(168 177 255);
+    --aw-color-secondary: rgb(92 115 231);
+    --aw-color-accent: rgb(168 177 255);
+
+    --aw-color-text-heading: rgb(223 223 214);
+    --aw-color-text-default: rgb(223 223 214);
+    --aw-color-text-muted: rgb(152 152 159);
+    --aw-color-bg-page: rgb(27 27 31);
+    --aw-color-bg-page-dark: rgb(22 22 24);
+
+    ::selection {
+      background-color: rgb(100 108 255 / 35%);
+      color: rgb(223 223 214);
+    }
+  }
+</style>

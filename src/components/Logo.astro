@@ -1,0 +1,19 @@
+---
+import { SITE } from 'astrowind:config';
+import logo from '~/assets/images/logo_white.svg';
+
+const name = SITE?.name ?? 'turbomem';
+---
+
+<span class="inline-flex items-center gap-2">
+  <img
+    src={logo.src}
+    alt=""
+    width={logo.width}
+    height={logo.height}
+    class="h-8 w-auto"
+    loading="eager"
+    decoding="async"
+  />
+  <span class="text-xl md:text-lg font-bold text-gray-900 dark:text-white whitespace-nowrap">{name}</span>
+</span>

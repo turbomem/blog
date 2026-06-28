@@ -1,0 +1,86 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+
+import Layout from '~/layouts/PageLayout.astro';
+import BlogList from '~/components/blog/List.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+// import PostTags from "~/components/blog/Tags.astro";
+
+import { SITE, METADATA } from 'astrowind:config';
+import { blogListRobots, getStaticPathsBlogList } from '~/utils/blog';
+import { getCanonical } from '~/utils/permalinks';
+
+export const prerender = true;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  return await getStaticPathsBlogList({ paginate });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props as Props;
+const currentPage = page.currentPage ?? 1;
+
+// const allCategories = await findCategories();
+// const allTags = await findTags();
+
+const blogDescription =
+  'News, tutorials, and updates on local-first agent memory for TypeScript.';
+
+const metadata = {
+  title: currentPage > 1 ? `Blog — Page ${currentPage}` : 'Blog',
+  description: blogDescription,
+  robots: {
+    index: blogListRobots?.index && currentPage === 1,
+    follow: blogListRobots?.follow,
+  },
+  openGraph: {
+    type: 'website',
+  },
+};
+
+const structuredData =
+  currentPage === 1
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: `${SITE.name} Blog`,
+          url: getCanonical('/'),
+          description: METADATA?.description,
+          publisher: {
+            '@type': 'Organization',
+            name: SITE.name,
+            url: 'https://turbomem.dev',
+          },
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: `${SITE.name} Blog`,
+          url: getCanonical('/'),
+          description: blogDescription,
+          publisher: {
+            '@type': 'Organization',
+            name: SITE.name,
+            url: 'https://turbomem.dev',
+          },
+        },
+      ]
+    : undefined;
+---
+
+<Layout metadata={metadata} structuredData={structuredData}>
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline subtitle="News, tutorials, and updates on local-first agent memory for TypeScript.">
+      Blog
+    </Headline>
+    <BlogList posts={page.data} />
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    <!--
+      <PostTags tags={allCategories} class="mb-2" title="Search by Categories:" isCategory />
+      <PostTags tags={allTags}  title="Search by Tags:" />
+    -->
+  </section>
+</Layout>

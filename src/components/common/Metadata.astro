@@ -1,0 +1,118 @@
+---
+import merge from 'lodash.merge';
+import { SEO } from 'astro-seo';
+
+import type { SEOProps } from 'astro-seo';
+
+import { SITE, METADATA, I18N } from 'astrowind:config';
+import type { MetaData, MetaDataOpenGraph } from '~/types';
+import { getCanonical } from '~/utils/permalinks';
+
+import { adaptOpenGraphImages } from '~/utils/images';
+
+export interface Props extends MetaData {
+  dontUseTitleTemplate?: boolean;
+}
+
+const {
+  title,
+  ignoreTitleTemplate = false,
+  canonical = String(getCanonical(String(Astro.url.pathname))),
+  robots = {},
+  description,
+  openGraph = {},
+  twitter = {},
+} = Astro.props;
+
+const mergedOg: MetaDataOpenGraph = merge(
+  {
+    url: canonical,
+    siteName: SITE?.name,
+    images: [],
+    locale: I18N?.language || 'en',
+    type: 'website',
+  },
+  METADATA?.openGraph,
+  { url: canonical, ...openGraph }
+);
+
+const adaptedOg = await adaptOpenGraphImages(mergedOg, Astro.site);
+
+const firstImage = adaptedOg?.images?.find((image) => image?.url)?.url || '';
+const pageTitle = title || METADATA?.title?.default || '';
+const pageDescription = description || METADATA?.description || '';
+
+function buildOpenGraph(og: MetaDataOpenGraph): SEOProps['openGraph'] | undefined {
+  if (!firstImage) return undefined;
+
+  return {
+    basic: {
+      title: pageTitle,
+      type: og.type || 'website',
+      image: firstImage,
+      url: og.url,
+    },
+    optional: {
+      description: pageDescription,
+      locale: og.locale,
+      siteName: og.siteName,
+    },
+    image: {
+      url: firstImage,
+      width: adaptedOg?.images?.[0]?.width,
+      height: adaptedOg?.images?.[0]?.height,
+      alt: pageTitle,
+    },
+    ...(og.article ? { article: og.article } : {}),
+  };
+}
+
+const mergedTwitter = merge(
+  {
+    card: (firstImage ? 'summary_large_image' : 'summary') as 'summary_large_image' | 'summary',
+    title: pageTitle,
+    description: pageDescription,
+    ...(firstImage ? { image: firstImage, imageAlt: pageTitle } : {}),
+  },
+  METADATA?.twitter
+    ? {
+        card: METADATA.twitter.cardType as 'summary_large_image' | 'summary' | undefined,
+        site: METADATA.twitter.site,
+        creator: METADATA.twitter.handle,
+      }
+    : {},
+  twitter
+    ? {
+        card: twitter.cardType as 'summary_large_image' | 'summary' | undefined,
+        site: twitter.site,
+        creator: twitter.handle,
+      }
+    : {}
+);
+
+const seoProps: SEOProps = {
+  title: pageTitle,
+  titleTemplate: ignoreTitleTemplate ? '%s' : METADATA?.title?.template || '%s',
+  titleDefault: METADATA?.title?.default,
+  canonical: canonical,
+  removeTrailingSlashForRoot: SITE?.trailingSlash === false,
+  noindex:
+    typeof robots?.index !== 'undefined'
+      ? !robots.index
+      : typeof METADATA?.robots?.index !== 'undefined'
+        ? !METADATA.robots.index
+        : true,
+  nofollow:
+    typeof robots?.follow !== 'undefined'
+      ? !robots.follow
+      : typeof METADATA?.robots?.follow !== 'undefined'
+        ? !METADATA.robots.follow
+        : true,
+  description: pageDescription,
+  openGraph: buildOpenGraph(adaptedOg),
+  twitter: mergedTwitter,
+  surpressWarnings: true,
+};
+---
+
+<SEO {...seoProps} />
