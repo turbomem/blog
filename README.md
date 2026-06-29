@@ -1,6 +1,6 @@
 # turbomem blog
 
-Blog for [turbomem](https://turbomem.dev/) — local-first agent memory for TypeScript.
+Blog for [turbomem](https://turbomem.dev/) local-first agent memory for TypeScript.
 
 Static site built with Astro and Tailwind CSS. The post list is the homepage.
 
@@ -60,12 +60,12 @@ This repo deploys with GitHub Actions on pushes to `main`.
 
 ## Scripts
 
-| Command           | Description                    |
-| ----------------- | ------------------------------ |
-| `npm run dev`     | Dev server                     |
-| `npm run build`   | Production build to `dist/`    |
-| `npm run preview` | Preview the production build   |
-| `npm run check`   | Astro check, ESLint, Prettier  |
+| Command           | Description                     |
+| ----------------- | ------------------------------- |
+| `npm run dev`     | Dev server                      |
+| `npm run build`   | Production build to `dist/`     |
+| `npm run preview` | Preview the production build    |
+| `npm run check`   | Astro check, ESLint, Prettier   |
 | `npm run fix`     | Auto-fix lint and format issues |
 
 ## License

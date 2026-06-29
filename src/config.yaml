@@ -8,8 +8,8 @@ site:
 metadata:
   title:
     default: turbomem Blog
-    template: '%s — turbomem'
-  description: 'News, tutorials, and updates on turbomem — local-first agent memory for TypeScript. No Python. No servers.'
+    template: '%s - turbomem'
+  description: 'News, tutorials, and updates on turbomem - local-first agent memory for TypeScript. No Python. No servers.'
   robots:
     index: true
     follow: true

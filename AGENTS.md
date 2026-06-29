@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Blog site for [turbomem](https://turbomem.dev/) — local-first agent memory for TypeScript. Built with Astro and Tailwind CSS.
+Blog site for [turbomem](https://turbomem.dev/) local-first agent memory for TypeScript. Built with Astro and Tailwind CSS.
 
 ## Quick Reference
 

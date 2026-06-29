@@ -2,7 +2,7 @@
   "name": "turbomem-blog",
   "version": "0.1.0",
   "author": "Arneesh Aima <arneesh@turbomem.dev>",
-  "description": "Blog for turbomem — local-first agent memory for TypeScript.",
+  "description": "Blog for turbomem - local-first agent memory for TypeScript.",
   "type": "module",
   "private": true,
   "engines": {
