@@ -1,9 +1,18 @@
 import { getBlogPermalink } from './utils/permalinks';
 
 const DOCS = 'https://docs.turbomem.dev';
+const SITE = 'https://turbomem.dev';
 
 export const headerData = {
   links: [
+    {
+      text: 'Home',
+      href: getBlogPermalink(),
+    },
+    {
+      text: 'Site',
+      href: SITE,
+    },
     {
       text: 'Docs',
       href: `${DOCS}/`,
@@ -15,10 +24,6 @@ export const headerData = {
     {
       text: 'API',
       href: `${DOCS}/api/reference`,
-    },
-    {
-      text: 'Blog',
-      href: getBlogPermalink(),
     },
   ],
   actions: [{ text: 'GitHub', href: 'https://github.com/turbomem/turbomem', target: '_blank' }],
@@ -41,6 +46,7 @@ export const footerData = {
     {
       title: 'Project',
       links: [
+        { text: 'Turbomem', href: SITE },
         { text: 'Adapters', href: `${DOCS}/adapters/mastra` },
         { text: 'Contact', href: `${DOCS}/contact` },
         { text: 'npm', href: 'https://www.npmjs.com/package/turbomem' },
@@ -52,9 +58,7 @@ export const footerData = {
     // { text: 'Terms', href: `${DOCS}/terms` },
     // { text: 'Privacy Policy', href: `${DOCS}/privacy` },
   ],
-  socialLinks: [
-    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/turbomem/turbomem' },
-  ],
+  socialLinks: [{ ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/turbomem/turbomem' }],
   footNote: `
     Apache-2.0 Licensed · turbomem · All Rights Reserved
   `,
