@@ -40,7 +40,67 @@ import { UI } from 'astrowind:config';
     }
   }
 
+  function createCopyButton() {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-copy-btn';
+    btn.setAttribute('aria-label', 'Copy code');
+    btn.setAttribute('data-aw-copy-code', '');
+    btn.innerHTML =
+      '<span class="code-copy-icon code-copy-icon-copy" aria-hidden="true"></span>' +
+      '<span class="code-copy-icon code-copy-icon-check" aria-hidden="true"></span>' +
+      '<span class="code-copy-label">Copy</span>';
+    return btn;
+  }
+
+  function initCodeCopyBlocks() {
+    document.querySelectorAll('.prose pre').forEach((pre) => {
+      let wrapper = pre.closest('.code-block-wrapper');
+
+      if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+      }
+
+      if (!wrapper.querySelector('[data-aw-copy-code]')) {
+        wrapper.appendChild(createCopyButton());
+      }
+    });
+  }
+
+  if (!window.copy_code_bound) {
+    window.copy_code_bound = true;
+
+    document.addEventListener('click', async function (event) {
+      const btn = event.target.closest('[data-aw-copy-code]');
+      if (!btn) return;
+
+      const wrapper = btn.closest('.code-block-wrapper');
+      const pre = wrapper?.querySelector('pre');
+      if (!pre) return;
+
+      const code = pre.querySelector('code');
+      const text = (code ?? pre).textContent ?? '';
+
+      try {
+        await navigator.clipboard.writeText(text.trimEnd());
+        btn.classList.add('copied');
+        const label = btn.querySelector('.code-copy-label');
+        if (label) label.textContent = 'Copied';
+        window.setTimeout(() => {
+          btn.classList.remove('copied');
+          if (label) label.textContent = 'Copy';
+        }, 2000);
+      } catch {
+        /* clipboard unavailable */
+      }
+    });
+  }
+
   const onLoad = function () {
+    initCodeCopyBlocks();
     let lastKnownScrollPosition = window.scrollY;
     let ticking = true;
 
@@ -162,6 +222,12 @@ import { UI } from 'astrowind:config';
     onLoad();
     onPageShow();
   });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCodeCopyBlocks);
+  } else {
+    initCodeCopyBlocks();
+  }
 </script>
 
 <script is:inline>

@@ -117,3 +117,105 @@
 .dd *:first-child {
   margin-top: 0;
 }
+
+.prose .code-block-wrapper {
+  position: relative;
+}
+
+.prose .code-block-wrapper pre {
+  padding-top: 2.5rem;
+}
+
+.prose .code-block-wrapper .code-copy-btn {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  border: 1px solid rgb(203 213 225);
+  border-radius: 0.375rem;
+  background-color: rgb(248 250 252 / 0.95);
+  color: rgb(71 85 105);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.dark .prose .code-block-wrapper .code-copy-btn {
+  border-color: rgb(71 85 105);
+  background-color: rgb(30 41 59 / 0.95);
+  color: rgb(203 213 225);
+}
+
+.prose .code-block-wrapper:hover .code-copy-btn,
+.prose .code-block-wrapper:focus-within .code-copy-btn,
+.prose .code-block-wrapper .code-copy-btn:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.prose .code-block-wrapper .code-copy-btn:hover {
+  background-color: rgb(241 245 249);
+  border-color: rgb(148 163 184);
+}
+
+.dark .prose .code-block-wrapper .code-copy-btn:hover {
+  background-color: rgb(51 65 85);
+  border-color: rgb(100 116 139);
+}
+
+.prose .code-block-wrapper .code-copy-btn.copied {
+  opacity: 1;
+  pointer-events: auto;
+  border-color: rgb(34 197 94);
+  color: rgb(22 163 74);
+}
+
+.dark .prose .code-block-wrapper .code-copy-btn.copied {
+  border-color: rgb(74 222 128);
+  color: rgb(74 222 128);
+}
+
+.prose .code-block-wrapper .code-copy-icon {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.prose .code-block-wrapper .code-copy-icon-copy {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/svg%3E");
+}
+
+.prose .code-block-wrapper .code-copy-icon-check {
+  display: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+}
+
+.prose .code-block-wrapper .code-copy-btn.copied .code-copy-icon-copy {
+  display: none;
+}
+
+.prose .code-block-wrapper .code-copy-btn.copied .code-copy-icon-check {
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .prose .code-block-wrapper .code-copy-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
