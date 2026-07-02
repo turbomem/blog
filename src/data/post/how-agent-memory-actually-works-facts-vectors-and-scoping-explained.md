@@ -205,6 +205,6 @@ When recall feels broken, resist the urge to tweak the chat prompt first. Walk t
 
 Agent memory is not magic. It is extraction, embeddings, scoping, and search, wired together so your agent remembers the right things for the right user at the right time.
 
-If you want to run this pipeline inside a TypeScript app without operating a separate memory server, [turbomem](https://turbomem.dev/) implements exactly this flow: `init()`, `add()` with extraction, `search()` with scoped semantic recall. The [architecture guide](https://turbomem.dev/guide/architecture.html) goes deeper on each stage, and the [getting started guide](https://turbomem.dev/guide/getting-started.html) lets you store and query your first facts in a few minutes.
+If you want to run this pipeline inside a TypeScript app without operating a separate memory server, [turbomem](https://turbomem.dev/) implements exactly this flow: `init()`, `add()` with extraction, `search()` with scoped semantic recall. The [architecture guide](https://docs.turbomem.dev/guide/architecture.html) goes deeper on each stage, and the [getting started guide](https://docs.turbomem.dev/guide/getting-started.html) lets you store and query your first facts in a few minutes.
 
 Questions or war stories about broken recall? Reach out on the [contact page](https://turbomem.dev/contact) or [GitHub](https://github.com/turbomem/turbomem). We are always interested in how memory behaves in the wild.

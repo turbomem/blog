@@ -43,20 +43,11 @@ Your content here.
 
 Posts are published at `/{slug}` where `slug` comes from the filename.
 
-## Configuration
+## Resources
 
-Site metadata and blog settings live in `src/config.yaml`. Navigation links are in `src/navigation.ts`.
+Core `turbomem` resources.
 
-Production URL: [https://blog.turbomem.dev](https://blog.turbomem.dev) (main docs site: [turbomem.dev](https://turbomem.dev)).
-
-## Deploy to GitHub Pages
-
-This repo deploys with GitHub Actions on pushes to `main`.
-
-1. In the repository **Settings → Pages**, set **Source** to **GitHub Actions**.
-2. Under **Custom domain**, enter `blog.turbomem.dev` (a `public/CNAME` file is already included).
-3. Add a DNS `CNAME` record pointing `blog.turbomem.dev` to your GitHub Pages hostname (`<username>.github.io` or your org’s Pages URL).
-4. Push to `main`. The workflow in `.github/workflows/deploy.yml` builds `dist/` and publishes it.
+Links: [https://blog.turbomem.dev](https://blog.turbomem.dev) (docs: [docs.turbomem.dev](https://docs.turbomem.dev), site: [turbomem.dev](https://turbomem.dev)).
 
 ## Scripts
 

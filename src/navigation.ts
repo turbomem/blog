@@ -1,6 +1,6 @@
 import { getBlogPermalink } from './utils/permalinks';
 
-const DOCS = 'https://turbomem.dev';
+const DOCS = 'https://docs.turbomem.dev';
 
 export const headerData = {
   links: [
