@@ -9,7 +9,7 @@ metadata:
   title:
     default: turbomem Blog
     template: '%s - turbomem'
-  description: 'News, tutorials, and updates on turbomem - local-first agent memory for TypeScript. No Python. No servers.'
+  description: 'News, tutorials, and updates on turbomem - embedded agent memory for TypeScript. Local-first by default. Pluggable to edge and serverless.'
   robots:
     index: true
     follow: true
