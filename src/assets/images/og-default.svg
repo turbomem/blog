@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
   <rect width="1200" height="630" fill="#1b1b1f"/>
-  <circle cx="180" cy="315" r="72" fill="#E2E4E8"/>
-  <circle cx="180" cy="315" r="56" fill="#F4F5F7"/>
-  <circle cx="180" cy="315" r="40" fill="#E2E4E8"/>
+  <g transform="translate(108, 243) scale(1.469388)">
+    <circle cx="49" cy="49" r="49" fill="#A8B1FF"/>
+    <circle cx="49" cy="49" r="39" fill="#C2C9FF"/>
+    <circle cx="49" cy="49" r="29" fill="#A8B1FF"/>
+  </g>
   <text x="290" y="280" fill="#ffffff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="72" font-weight="700" letter-spacing="-0.02em">turbomem</text>
   <text x="290" y="360" fill="#a8b1ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="500">Embedded agent memory for TypeScript</text>
   <text x="290" y="420" fill="#9898a6" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="400">blog.turbomem.dev</text>
