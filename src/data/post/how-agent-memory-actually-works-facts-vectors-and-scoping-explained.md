@@ -2,6 +2,7 @@
 publishDate: 2026-06-29T12:00:00Z
 title: 'How Agent Memory Actually Works: Facts, Vectors, and Scoping Explained'
 excerpt: Storing every chat message and hoping the model finds the right ones does not scale. Here is what actually happens inside a memory pipeline, from fact extraction to scoped vector search, and how to debug it when recall goes sideways.
+image: ~/assets/blogs/vectors.jpg
 category: Engineering
 tags:
   - turbomem

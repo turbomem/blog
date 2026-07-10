@@ -2,6 +2,7 @@
 publishDate: 2026-07-06T12:00:00Z
 title: 'Mem0 vs TurboMem: which memory layer actually fits your TypeScript agent'
 excerpt: Mem0 is the name everyone hears first. If your agent runs in TypeScript, TurboMem bets on a different model i.e embedded memory in your process, not another service to operate. Here is an honest comparison based on hard facts.
+image: ~/assets/blogs/transformers.jpg
 category: Product
 tags:
   - turbomem

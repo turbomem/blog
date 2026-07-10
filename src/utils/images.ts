@@ -8,9 +8,10 @@ let _localImages: Record<string, () => Promise<unknown>> | undefined;
 const loadLocalImages = () => {
   if (_localImages) return _localImages;
   try {
-    _localImages = import.meta.glob(
-      '~/assets/images/**/*.{jpeg,jpg,png,tiff,webp,gif,svg,JPEG,JPG,PNG,TIFF,WEBP,GIF,SVG}'
-    );
+    _localImages = import.meta.glob([
+      '~/assets/images/**/*.{jpeg,jpg,png,tiff,webp,gif,svg,JPEG,JPG,PNG,TIFF,WEBP,GIF,SVG}',
+      '~/assets/blogs/**/*.{jpeg,jpg,png,tiff,webp,gif,svg,JPEG,JPG,PNG,TIFF,WEBP,GIF,SVG}',
+    ]);
   } catch {
     _localImages = {};
   }
@@ -23,7 +24,7 @@ const loadLocalImages = () => {
  *   - `null` / `undefined`         → returned as-is
  *   - `ImageMetadata`              → returned as-is (already imported)
  *   - `"http(s)://…"` or `"/path"` → returned as-is (external or public/)
- *   - `"~/assets/images/…"`        → resolved to its ImageMetadata via the glob
+ *   - `"~/assets/images/…"` or `"~/assets/blogs/…"` → resolved to its ImageMetadata via the glob
  */
 export const findImage = async (
   imagePath?: string | ImageMetadata | null
@@ -31,7 +32,7 @@ export const findImage = async (
   if (typeof imagePath !== 'string') return imagePath;
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('/'))
     return imagePath;
-  if (!imagePath.startsWith('~/assets/images')) return imagePath;
+  if (!imagePath.startsWith('~/assets/images') && !imagePath.startsWith('~/assets/blogs')) return imagePath;
 
   const images = loadLocalImages();
   const key = imagePath.replace('~/', '/src/');

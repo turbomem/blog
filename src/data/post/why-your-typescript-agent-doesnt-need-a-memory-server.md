@@ -2,6 +2,7 @@
 publishDate: 2026-06-28T00:00:00Z
 title: Why Your TypeScript Agent Doesn't Need a Memory Server
 excerpt: Most agent memory stacks assume you want another service in the loop. If you are building in TypeScript, that assumption costs you latency, dependencies, and operational overhead you may not need.
+image: ~/assets/blogs/stop.jpg
 category: Product
 tags:
   - turbomem

@@ -5,6 +5,7 @@ excerpt: >-
   A walkthrough of the turbomem Next.js starter: a production shaped chat app
   where the assistant recalls facts across sessions, with a visible memory panel
   and Vercel AI SDK streaming.
+image: ~/assets/blogs/memory.jpg
 category: Tutorial
 tags:
   - turbomem
