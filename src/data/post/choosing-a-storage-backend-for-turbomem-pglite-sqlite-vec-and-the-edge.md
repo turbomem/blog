@@ -1,7 +1,7 @@
 ---
 publishDate: 2026-07-12T00:00:00Z
 title: 'Choosing a Storage Backend for TurboMem: PGlite, sqlite-vec, and the Edge'
-excerpt: TurboMem asks you to make one real decision when you set it up — storage. Where your vectors and facts live depends almost entirely on where your code runs, and the adapters are built around that difference.
+excerpt: TurboMem asks you to make one real decision when you set it up i.e storage. Where your vectors and facts live depends almost entirely on where your code runs, and the adapters are built around that difference.
 image: ~/assets/blogs/choice.jpg
 category: Engineering
 tags:

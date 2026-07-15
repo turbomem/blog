@@ -18,7 +18,7 @@ export const headerData = {
       href: `${DOCS}/`,
     },
     {
-      text: 'NPM',
+      text: 'npm',
       href: `https://www.npmjs.com/package/turbomem`,
     },
     {
