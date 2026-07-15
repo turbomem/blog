@@ -10,7 +10,7 @@ tags:
   - pglite
   - sqlite-vec
   - upstash
-author: Arneesh
+author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/choosing-a-storage-backend-for-turbomem-pglite-sqlite-vec-and-the-edge
 ---

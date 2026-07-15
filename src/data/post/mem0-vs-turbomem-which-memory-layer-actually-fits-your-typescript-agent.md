@@ -9,7 +9,7 @@ tags:
   - typescript
   - agents
   - memory
-author: Arneesh
+author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/mem0-vs-turbomem-which-memory-layer-actually-fits-your-typescript-agent
 ---

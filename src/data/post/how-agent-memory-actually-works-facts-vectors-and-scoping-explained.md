@@ -10,7 +10,7 @@ tags:
   - memory
   - embeddings
   - architecture
-author: Arneesh
+author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/how-agent-memory-actually-works-facts-vectors-and-scoping-explained
 ---

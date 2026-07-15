@@ -9,7 +9,7 @@ tags:
   - typescript
   - agents
   - memory
-author: Arneesh
+author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/why-your-typescript-agent-doesnt-need-a-memory-server
 ---
@@ -70,7 +70,7 @@ That model is different from "run a memory platform and point clients at it." It
 
 ## Before and after: mem0 style setup vs turbomem
 
-Fair comparison requires context. mem0 is a strong option when you want a dedicated memory service, multi language clients, or a hosted platform with ops taken off your plate. The snippets below are illustrative of the *shape* of each approach, not a benchmark.
+Fair comparison requires context. mem0 is a strong option when you want a dedicated memory service, multi language clients, or a hosted platform with ops taken off your plate. The snippets below are illustrative of the _shape_ of each approach, not a benchmark.
 
 ### Typical server oriented path
 
@@ -83,10 +83,10 @@ const memoryClient = createRemoteMemoryClient({
   baseUrl: process.env.MEMORY_API_URL,
 });
 
-await memoryClient.add(messages, { userId: "user_123" });
+await memoryClient.add(messages, { userId: 'user_123' });
 
-const results = await memoryClient.search("What does the user care about?", {
-  userId: "user_123",
+const results = await memoryClient.search('What does the user care about?', {
+  userId: 'user_123',
 });
 ```
 
@@ -97,28 +97,28 @@ Behind that client you are still responsible for whatever runs at `MEMORY_API_UR
 With turbomem, memory is constructed and used inside your application:
 
 ```typescript
-import { TurboMemory } from "turbomem";
+import { TurboMemory } from 'turbomem';
 
 const memory = new TurboMemory({
-  embeddings: "openai",
-  storage: "pglite",
-  extraction: { provider: "openai", model: "gpt-4.1-mini" },
+  embeddings: 'openai',
+  storage: 'pglite',
+  extraction: { provider: 'openai', model: 'gpt-4.1-mini' },
   openai: { apiKey: process.env.OPENAI_API_KEY },
-  pglite: { dataDir: ".turbomem" },
+  pglite: { dataDir: '.turbomem' },
 });
 
 await memory.init();
 
 await memory.add(
   [
-    { role: "user", content: "I love hiking and I'm training for a half marathon this fall." },
-    { role: "assistant", content: "Nice. I'll remember your fitness goals." },
+    { role: 'user', content: "I love hiking and I'm training for a half marathon this fall." },
+    { role: 'assistant', content: "Nice. I'll remember your fitness goals." },
   ],
-  { userId: "user_123" },
+  { userId: 'user_123' }
 );
 
-const results = await memory.search("What outdoor activities is the user into?", {
-  userId: "user_123",
+const results = await memory.search('What outdoor activities is the user into?', {
+  userId: 'user_123',
   limit: 5,
 });
 

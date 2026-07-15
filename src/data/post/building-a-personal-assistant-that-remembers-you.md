@@ -13,7 +13,7 @@ tags:
   - vercel-ai
   - tutorial
   - agents
-author: Arneesh
+author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/building-a-personal-assistant-that-remembers-you
 ---
@@ -132,7 +132,7 @@ The starter pulls together four pieces that matter for memory:
 Serverless functions can spin up fresh on every request, so we need a singleton that initializes once and reuses the same `TurboMemory` instance. That lives in `lib/memory.ts`:
 
 ```typescript
-import { TurboMemory } from "turbomem";
+import { TurboMemory } from 'turbomem';
 
 let instance: TurboMemory | null = null;
 let initPromise: Promise<TurboMemory> | null = null;
@@ -142,9 +142,9 @@ export async function getMemory(): Promise<TurboMemory> {
   if (!initPromise) {
     initPromise = (async () => {
       const memory = new TurboMemory({
-        embeddings: "openai",
-        storage: "upstash-vector",
-        extraction: { provider: "openai", model: "gpt-4.1-mini" },
+        embeddings: 'openai',
+        storage: 'upstash-vector',
+        extraction: { provider: 'openai', model: 'gpt-4.1-mini' },
         openai: { apiKey: process.env.OPENAI_API_KEY },
         upstashVector: {
           url: process.env.UPSTASH_VECTOR_REST_URL!,
@@ -171,11 +171,7 @@ A few details worth noting:
 Environment validation is centralized in `lib/env.ts` so both API routes fail fast with a clear error:
 
 ```typescript
-const REQUIRED_ENV = [
-  "OPENAI_API_KEY",
-  "UPSTASH_VECTOR_REST_URL",
-  "UPSTASH_VECTOR_REST_TOKEN",
-] as const;
+const REQUIRED_ENV = ['OPENAI_API_KEY', 'UPSTASH_VECTOR_REST_URL', 'UPSTASH_VECTOR_REST_TOKEN'] as const;
 
 export function envConfigError(): Response | null {
   const missing = REQUIRED_ENV.filter((key) => !process.env[key]);
@@ -186,9 +182,9 @@ export function envConfigError(): Response | null {
 
   return new Response(
     JSON.stringify({
-      error: `Missing environment variables: ${missing.join(", ")}`,
+      error: `Missing environment variables: ${missing.join(', ')}`,
     }),
-    { status: 500, headers: { "Content-Type": "application/json" } },
+    { status: 500, headers: { 'Content-Type': 'application/json' } }
   );
 }
 ```
@@ -198,20 +194,20 @@ export function envConfigError(): Response | null {
 The heart of the app is `app/api/chat/route.ts`. Each POST does four things: recall relevant memories, build a system prompt, stream a response with memory tools, and persist new facts after the turn completes.
 
 ```typescript
-import { openai } from "@ai-sdk/openai";
-import { streamText, type Message } from "ai";
-import { createMemoryTools } from "@turbomem/vercel-ai";
-import { DEMO_USER_ID } from "@/lib/constants";
-import { envConfigError } from "@/lib/env";
-import { getMemory } from "@/lib/memory";
-import { buildSystemPrompt } from "@/lib/prompts";
+import { openai } from '@ai-sdk/openai';
+import { streamText, type Message } from 'ai';
+import { createMemoryTools } from '@turbomem/vercel-ai';
+import { DEMO_USER_ID } from '@/lib/constants';
+import { envConfigError } from '@/lib/env';
+import { getMemory } from '@/lib/memory';
+import { buildSystemPrompt } from '@/lib/prompts';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 export const maxDuration = 30;
 
 function getLatestUserMessage(messages: Message[]): Message | undefined {
   for (let i = messages.length - 1; i >= 0; i -= 1) {
-    if (messages[i]?.role === "user") {
+    if (messages[i]?.role === 'user') {
       return messages[i];
     }
   }
@@ -228,26 +224,26 @@ export async function POST(req: Request) {
 
   const lastUser = getLatestUserMessage(messages);
   const recalled =
-    lastUser?.content && typeof lastUser.content === "string"
+    lastUser?.content && typeof lastUser.content === 'string'
       ? await memory.search(lastUser.content, { userId: DEMO_USER_ID, limit: 5 })
       : [];
 
   const system = buildSystemPrompt(recalled);
 
   const result = await streamText({
-    model: openai("gpt-4.1-mini"),
+    model: openai('gpt-4.1-mini'),
     system,
     messages,
     tools,
     maxSteps: 5,
     onFinish: async ({ text }) => {
-      if (lastUser?.content && typeof lastUser.content === "string" && text) {
+      if (lastUser?.content && typeof lastUser.content === 'string' && text) {
         await memory.add(
           [
-            { role: "user", content: lastUser.content },
-            { role: "assistant", content: text },
+            { role: 'user', content: lastUser.content },
+            { role: 'assistant', content: text },
           ],
-          { userId: DEMO_USER_ID },
+          { userId: DEMO_USER_ID }
         );
       }
     },
@@ -272,7 +268,7 @@ The `maxSteps: 5` setting allows the model to call tools and continue reasoning 
 Memories are scoped to a user. The starter hardcodes a demo id:
 
 ```typescript
-export const DEMO_USER_ID = "demo_user";
+export const DEMO_USER_ID = 'demo_user';
 ```
 
 In production you would replace this with the authenticated user's id. Every write and search in the chat route and memories route uses the same scope, which prevents cross user leakage.
@@ -282,17 +278,16 @@ In production you would replace this with the authenticated user's id. Every wri
 Recalled facts are formatted into the system prompt in `lib/prompts.ts`:
 
 ```typescript
-import type { MemorySearchResult } from "turbomem";
+import type { MemorySearchResult } from 'turbomem';
 
 export function buildSystemPrompt(recalled: MemorySearchResult[]): string {
-  const base =
-    "You are a helpful personal assistant. You have a long-term memory system.";
+  const base = 'You are a helpful personal assistant. You have a long-term memory system.';
 
   if (recalled.length === 0) {
     return `${base}\n\nYou don't know anything about this user yet — learn about them through conversation.`;
   }
 
-  const facts = recalled.map((r) => `- ${r.memory.content}`).join("\n");
+  const facts = recalled.map((r) => `- ${r.memory.content}`).join('\n');
 
   return `${base}
 
@@ -312,11 +307,11 @@ The prompt also instructs the model to use `rememberFact` for new information an
 The memory panel needs its own endpoint. `app/api/memories/route.ts` lists and clears stored facts:
 
 ```typescript
-import { DEMO_USER_ID } from "@/lib/constants";
-import { envConfigError } from "@/lib/env";
-import { getMemory } from "@/lib/memory";
+import { DEMO_USER_ID } from '@/lib/constants';
+import { envConfigError } from '@/lib/env';
+import { getMemory } from '@/lib/memory';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 export async function GET() {
   const configError = envConfigError();
@@ -331,10 +326,7 @@ export async function GET() {
       content: m.content,
       createdAt: m.createdAt.toISOString(),
     }))
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   return Response.json({ memories });
 }
@@ -433,10 +425,10 @@ On desktop, the memory panel sits beside the chat. On mobile, a header button op
 `components/MemoryPanel.tsx` fetches from `/api/memories` and renders each fact with a relative timestamp:
 
 ```typescript
-"use client";
+'use client';
 
-import { formatDistanceToNow } from "date-fns";
-import { useCallback, useEffect, useState } from "react";
+import { formatDistanceToNow } from 'date-fns';
+import { useCallback, useEffect, useState } from 'react';
 
 interface MemoryItem {
   id: string;
@@ -449,15 +441,15 @@ interface MemoryPanelProps {
   className?: string;
 }
 
-export function MemoryPanel({ refreshToken, className = "" }: MemoryPanelProps) {
+export function MemoryPanel({ refreshToken, className = '' }: MemoryPanelProps) {
   const [memories, setMemories] = useState<MemoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchMemories = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/memories");
-      if (!res.ok) throw new Error("Failed to fetch memories");
+      const res = await fetch('/api/memories');
+      if (!res.ok) throw new Error('Failed to fetch memories');
       const data = (await res.json()) as { memories: MemoryItem[] };
       setMemories(data.memories);
     } catch {
@@ -530,14 +522,14 @@ Each of these builds on the same architecture. The starter gives you the skeleto
 
 ## What you get out of the box
 
-| Layer        | Choice                                              |
-| ------------ | --------------------------------------------------- |
-| Framework    | Next.js 14 App Router, Node.js runtime              |
-| AI           | Vercel AI SDK with OpenAI streaming                 |
-| Memory       | turbomem + `@turbomem/vercel-ai` tools              |
-| Storage      | Upstash Vector (1536 dims, cosine similarity)       |
-| Styling      | Tailwind CSS with light and dark mode               |
-| Deploy       | Vercel                                              |
+| Layer     | Choice                                        |
+| --------- | --------------------------------------------- |
+| Framework | Next.js 14 App Router, Node.js runtime        |
+| AI        | Vercel AI SDK with OpenAI streaming           |
+| Memory    | turbomem + `@turbomem/vercel-ai` tools        |
+| Storage   | Upstash Vector (1536 dims, cosine similarity) |
+| Styling   | Tailwind CSS with light and dark mode         |
+| Deploy    | Vercel                                        |
 
 No Python sidecar. No separate memory microservice. One TypeScript codebase, one deploy target, memories that actually stick.
 
