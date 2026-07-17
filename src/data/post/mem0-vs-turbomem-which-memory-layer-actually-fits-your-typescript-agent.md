@@ -1,7 +1,7 @@
 ---
 publishDate: 2026-07-06T12:00:00Z
 title: 'Mem0 TypeScript Alternative: TurboMem vs Mem0 SDK'
-excerpt: 'Looking for a Mem0 TypeScript alternative? TurboMem is an embedded memory library — no separate server, no Docker stack. Compare setup, runtime support, and cost vs the Mem0 SDK and self-hosted Mem0.'
+excerpt: 'Looking for a Mem0 TypeScript alternative? TurboMem is an embedded memory library - no separate server, no Docker stack. Compare setup, runtime support, and cost vs the Mem0 SDK and self-hosted Mem0.'
 image: ~/assets/blogs/transformers.jpg
 category: Product
 tags:
@@ -13,7 +13,7 @@ tags:
 author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/mem0-vs-turbomem-which-memory-layer-actually-fits-your-typescript-agent
-  description: 'Mem0 TypeScript alternative: compare TurboMem vs Mem0 SDK. Embedded in-process memory vs a separate memory service — setup, edge/browser support, and self-hosting overhead.'
+  description: 'Mem0 TypeScript alternative: compare TurboMem vs Mem0 SDK. Embedded in-process memory vs a separate memory service - setup, edge/browser support, and self-hosting overhead.'
 structuredData:
   - '@context': 'https://schema.org'
     '@type': FAQPage

@@ -284,7 +284,7 @@ export function buildSystemPrompt(recalled: MemorySearchResult[]): string {
   const base = 'You are a helpful personal assistant. You have a long-term memory system.';
 
   if (recalled.length === 0) {
-    return `${base}\n\nYou don't know anything about this user yet — learn about them through conversation.`;
+    return `${base}\n\nYou don't know anything about this user yet - learn about them through conversation.`;
   }
 
   const facts = recalled.map((r) => `- ${r.memory.content}`).join('\n');
@@ -294,7 +294,7 @@ export function buildSystemPrompt(recalled: MemorySearchResult[]): string {
 Here are facts you already know about this user:
 ${facts}
 
-Use these facts to personalize your responses. If the user shares new information about themselves, use the rememberFact tool to save it. Don't announce that you're saving memories — just do it naturally.`;
+Use these facts to personalize your responses. If the user shares new information about themselves, use the rememberFact tool to save it. Don't announce that you're saving memories - just do it naturally.`;
 }
 ```
 
