@@ -145,8 +145,8 @@ If that sounds like your stack, the overhead of a memory server may be solving a
 
 ## Get started
 
-The fastest way to see how embedded memory feels in your own agent is to run through the [getting started guide](https://docs.turbomem.dev/guide/getting-started.html): install the package, set your OpenAI key, call `init()`, and store your first scoped memories.
+The fastest way to see how embedded memory feels in your own agent is to run through the [getting started guide](https://docs.turbomem.dev/guide/getting-started): install the package, set your OpenAI key, call `init()`, and store your first scoped memories.
 
-From there, the [configuration guide](https://docs.turbomem.dev/guide/configuration.html) covers embeddings, extraction, and scoping, and the [architecture overview](https://docs.turbomem.dev/guide/architecture.html) walks through the full pipeline.
+From there, the [configuration guide](https://docs.turbomem.dev/guide/configuration) covers embeddings, extraction, and scoping, and the [architecture overview](https://docs.turbomem.dev/guide/architecture) walks through the full pipeline.
 
 If you have questions or feedback, reach out on the [contact page](https://turbomem.dev/contact) or email [arneesh@turbomem.dev](mailto:arneesh@turbomem.dev). We are building turbomem in the open on [GitHub](https://github.com/turbomem/turbomem).

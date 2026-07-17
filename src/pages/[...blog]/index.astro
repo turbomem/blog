@@ -52,26 +52,29 @@ const metadata = merge(
   { ...(post?.metadata ? { ...post.metadata, canonical: post.metadata?.canonical || url } : {}) }
 ) as MetaData;
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: post.title,
-  description: post.excerpt,
-  datePublished: post.publishDate.toISOString(),
-  dateModified: modifiedDate.toISOString(),
-  ...(post.author ? { author: { '@type': 'Person', name: post.author } } : {}),
-  publisher: {
-    '@type': 'Organization',
-    name: 'turbomem',
-    url: 'https://turbomem.dev',
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.publishDate.toISOString(),
+    dateModified: modifiedDate.toISOString(),
+    ...(post.author ? { author: { '@type': 'Person', name: post.author } } : {}),
+    publisher: {
+      '@type': 'Organization',
+      name: 'turbomem',
+      url: 'https://turbomem.dev',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': String(url),
+    },
+    ...(post.category ? { articleSection: post.category.title } : {}),
+    ...(post.tags?.length ? { keywords: post.tags.map((tag) => tag.title).join(', ') } : {}),
   },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': String(url),
-  },
-  ...(post.category ? { articleSection: post.category.title } : {}),
-  ...(post.tags?.length ? { keywords: post.tags.map((tag) => tag.title).join(', ') } : {}),
-};
+  ...(post.structuredData ?? []),
+];
 ---
 
 <Layout metadata={metadata} structuredData={structuredData}>

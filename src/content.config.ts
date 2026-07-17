@@ -63,6 +63,8 @@ const postCollection = defineCollection({
     author: z.string().optional(),
 
     metadata: metadataDefinition(),
+
+    structuredData: z.array(z.record(z.string(), z.unknown())).optional(),
   }),
 });
 

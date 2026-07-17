@@ -92,6 +92,6 @@ That is actually good news. Memory is under your control. You decide what to kee
 
 The agents that feel personal are not the ones with the largest context windows. They are the ones that treat memory as three related problems instead of one blob of text. Working memory for the conversation in front of you. Episodic memory for the record of what happened. Semantic memory for what is true and worth carrying forward.
 
-If you are building in TypeScript and want to see how semantic memory fits into a full pipeline, the [architecture guide](https://docs.turbomem.dev/guide/architecture.html) walks through extraction, embedding, and scoped search in detail. The [getting started guide](https://docs.turbomem.dev/guide/getting-started.html) is the fastest way to store your first facts and search them in a new session.
+If you are building in TypeScript and want to see how semantic memory fits into a full pipeline, the [architecture guide](https://docs.turbomem.dev/guide/architecture) walks through extraction, embedding, and scoped search in detail. The [getting started guide](https://docs.turbomem.dev/guide/getting-started) is the fastest way to store your first facts and search them in a new session.
 
 If you have questions about how memory should work in your product, reach out on the [contact page](https://turbomem.dev/contact) or [GitHub](https://github.com/turbomem/turbomem).

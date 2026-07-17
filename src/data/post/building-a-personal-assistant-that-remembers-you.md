@@ -537,6 +537,6 @@ No Python sidecar. No separate memory microservice. One TypeScript codebase, one
 
 Clone the [starter repo](https://github.com/turbomem/turbomem-nextjs-starter), add your keys, and run a conversation. Share a few facts about yourself, refresh, and ask the assistant what it remembers. Watch the memory panel update after each turn.
 
-For deeper context on what happens under the hood, read [How Agent Memory Actually Works](/how-agent-memory-actually-works-facts-vectors-and-scoping-explained) and the [turbomem architecture guide](https://docs.turbomem.dev/guide/architecture.html).
+For deeper context on what happens under the hood, read [How Agent Memory Actually Works](/how-agent-memory-actually-works-facts-vectors-and-scoping-explained) and the [turbomem architecture guide](https://docs.turbomem.dev/guide/architecture).
 
 Questions or improvements for the starter? Open an issue on [GitHub](https://github.com/turbomem/turbomem-nextjs-starter) or reach out on the [contact page](https://turbomem.dev/contact).

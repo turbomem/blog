@@ -1,7 +1,7 @@
 ---
 publishDate: 2026-07-06T12:00:00Z
-title: 'Mem0 vs TurboMem: which memory layer actually fits your TypeScript agent'
-excerpt: Mem0 is the name everyone hears first. If your agent runs in TypeScript, TurboMem bets on a different model i.e embedded memory in your process, not another service to operate. Here is an honest comparison based on hard facts.
+title: 'Mem0 TypeScript Alternative: TurboMem vs Mem0 SDK'
+excerpt: 'Looking for a Mem0 TypeScript alternative? TurboMem is an embedded memory library — no separate server, no Docker stack. Compare setup, runtime support, and cost vs the Mem0 SDK and self-hosted Mem0.'
 image: ~/assets/blogs/transformers.jpg
 category: Product
 tags:
@@ -9,12 +9,49 @@ tags:
   - typescript
   - agents
   - memory
+  - mem0
 author: Arneesh Aima
 metadata:
   canonical: https://blog.turbomem.dev/mem0-vs-turbomem-which-memory-layer-actually-fits-your-typescript-agent
+  description: 'Mem0 TypeScript alternative: compare TurboMem vs Mem0 SDK. Embedded in-process memory vs a separate memory service — setup, edge/browser support, and self-hosting overhead.'
+structuredData:
+  - '@context': 'https://schema.org'
+    '@type': FAQPage
+    mainEntity:
+      - '@type': Question
+        name: Is TurboMem a Mem0 alternative for TypeScript?
+        acceptedAnswer:
+          '@type': Answer
+          text: Yes. TurboMem is an embedded TypeScript library that runs in-process with no separate memory server. Mem0 typically requires a Postgres/Qdrant stack or its hosted API, with a Python-first core and a TypeScript SDK on top.
+      - '@type': Question
+        name: Does TurboMem require self-hosting a memory server like Mem0?
+        acceptedAnswer:
+          '@type': Answer
+          text: No. TurboMem runs inside your Node, Bun, browser, or edge process. The default PGlite backend needs no external database. Mem0 self-hosting usually means Docker Compose with Postgres, optionally Neo4j, and the Mem0 API server.
+      - '@type': Question
+        name: Can TurboMem run on the edge or in the browser?
+        acceptedAnswer:
+          '@type': Answer
+          text: Yes. TurboMem supports IndexedDB-backed PGlite in the browser and Upstash Vector or Pinecone on edge runtimes like Cloudflare Workers and Vercel Edge. Mem0 is designed around server-based vector stores.
+      - '@type': Question
+        name: Which is better for a TypeScript-only agent stack?
+        acceptedAnswer:
+          '@type': Answer
+          text: TurboMem is built natively for TypeScript with Zod-validated APIs and adapters for Mastra and the Vercel AI SDK. Mem0 is stronger for Python-first stacks or cross-language teams that want a managed memory platform.
 ---
 
 If you are building an AI agent that needs to remember things across sessions, you have probably run into Mem0 already. It is one of the most talked about memory layers in the space, well funded and framework agnostic. But if your stack is TypeScript, there is a newer option worth a serious look: [TurboMem](https://turbomem.dev/). It takes a different architectural bet, and for a lot of TS focused companies, that bet pays off.
+
+## Quick comparison
+
+|                        | **TurboMem**                        | **Mem0**                                          |
+| ---------------------- | ----------------------------------- | ------------------------------------------------- |
+| **Model**              | Embedded library (in-process)       | Separate memory service / hosted API              |
+| **TypeScript**         | Native, strict typing + Zod         | TypeScript SDK over Python-first core             |
+| **Default setup**      | `npm install turbomem` + OpenAI key | Docker Compose (Postgres, API) or hosted platform |
+| **Browser / edge**     | IndexedDB PGlite, Upstash, Pinecone | Server-oriented vector backends                   |
+| **Self-host overhead** | None (runs in your app process)     | Postgres, optional Neo4j, API server to operate   |
+| **License / cost**     | Apache 2.0, fully open source today | Open source + paid hosted tiers                   |
 
 ## The core difference: embedded vs server based
 
@@ -83,9 +120,9 @@ But if you are building a TypeScript agent, and you want memory that behaves lik
 
 ## Get started
 
-If the embedded model fits your stack, the fastest way to see it in your own agent is the [getting started guide](https://docs.turbomem.dev/guide/getting-started.html): install the package, set your OpenAI key, call `init()`, and store your first scoped memories.
+If the embedded model fits your stack, the fastest way to see it in your own agent is the [getting started guide](https://docs.turbomem.dev/guide/getting-started): install the package, set your OpenAI key, call `init()`, and store your first scoped memories.
 
-From there, the [configuration guide](https://docs.turbomem.dev/guide/configuration.html) covers embeddings, extraction, and scoping, and the [architecture overview](https://docs.turbomem.dev/guide/architecture.html) walks through the full pipeline.
+From there, the [configuration guide](https://docs.turbomem.dev/guide/configuration) covers embeddings, extraction, and scoping, and the [architecture overview](https://docs.turbomem.dev/guide/architecture) walks through the full pipeline.
 
 For more on why TypeScript teams often skip a separate memory server in the first place, read [Why Your TypeScript Agent Doesn't Need a Memory Server](/why-your-typescript-agent-doesnt-need-a-memory-server).
 

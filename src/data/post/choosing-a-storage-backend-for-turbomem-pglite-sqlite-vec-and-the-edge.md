@@ -89,6 +89,6 @@ It's worth treating your embedding model choice as something you settle early, a
 
 ## Where to go from here
 
-Storage is the one setup decision in turbomem that's actually tied to where your code runs rather than personal preference. Once you know your runtime, the choice mostly makes itself. The [storage guide](https://docs.turbomem.dev/guide/storage) has the full adapter reference if you want the exact config shape for sqlite-vec, Upstash Vector, or Pinecone, and the [architecture guide](https://docs.turbomem.dev/guide/architecture.html) covers how storage fits into the rest of the extraction and search pipeline.
+Storage is the one setup decision in turbomem that's actually tied to where your code runs rather than personal preference. Once you know your runtime, the choice mostly makes itself. The [storage guide](https://docs.turbomem.dev/guide/storage) has the full adapter reference if you want the exact config shape for sqlite-vec, Upstash Vector, or Pinecone, and the [architecture guide](https://docs.turbomem.dev/guide/architecture) covers how storage fits into the rest of the extraction and search pipeline.
 
 If you've run into a storage question this post didn't answer, reach out on the [contact page](https://turbomem.dev/contact) or [GitHub](https://github.com/turbomem/turbomem).

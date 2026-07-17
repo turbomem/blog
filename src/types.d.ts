@@ -23,6 +23,8 @@ export interface Post {
 
   metadata?: MetaData;
 
+  structuredData?: Array<Record<string, unknown>>;
+
   draft?: boolean;
 
   /** Rendered Astro component factory for the post body. */
